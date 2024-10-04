@@ -1,0 +1,44 @@
+#version: '3.4'
+
+networks:
+  default:
+    driver: bridge
+    
+services:
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    networks:
+      - default
+    volumes:
+      - ./app/:/app
+    #command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
+    ports:
+    - "5000:5000"
+    env_file:
+      - .env
+
+  db:
+    image: postgres:latest
+    restart: always
+    env_file:
+      - .env
+    ports:
+    - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  dbadmin:
+    image: dpage/pgadmin4
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "9001:9001"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin 
+
+volumes:
+  postgres_data:
+  pgadmin_data:
