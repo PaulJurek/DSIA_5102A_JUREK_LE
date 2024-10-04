@@ -1,3 +1,4 @@
+fastapi 
 starlette_exporter
 sqlalchemy
 pydantic
