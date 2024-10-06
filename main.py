@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from datetime import datetime
 from sqlalchemy.dialects.postgresql import UUID
-from models.models import BaseSQL
-from database import engine
+#from models.models import BaseSQL
+from database import engine, BaseSQL
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
