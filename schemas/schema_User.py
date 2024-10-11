@@ -13,21 +13,22 @@ class schema_User(BaseModel):
     adresse_numero: int
     adresse_rue: str
     adresse_ville: str
+    mot_de_passe: str
 
     @field_validator('prenom', 'nom', 'surnom')
-    def validator_prenom_nom_surnom(cls, v, field):
+    def validator_prenom_nom_surnom(cls, v, info):
         if not v.strip():
-            raise ValueError(f'Le {field.name} ne doit pas être vide')
+            raise ValueError(f'Le {info.field_name} ne doit pas être vide')
         if len(v) > 32:
-            raise ValueError(f'Le {field.name} ne doit pas dépasser les 32 caractères')
+            raise ValueError(f'Le {info.field_name} ne doit pas dépasser les 32 caractères')
         regex = ''
-        if field.name == 'prenom':
+        if info.field_name == 'prenom':
             regex = r"^[A-Za-zÀ-ÿ- ]+$"
-        if field.name == 'nom':
+        if info.field_name == 'nom':
             regex = r"^[A-Za-zÀ-ÿ' -]+$"
         if re.match(regex, v):
             return v
-        raise ValueError(f'Le {field.name} est invalide')
+        raise ValueError(f'Le {info.field_name} est invalide')
     
     @field_validator('email')
     def validator_email(cls, v):
@@ -54,16 +55,16 @@ class schema_User(BaseModel):
         return date_naissance
 
     @field_validator('adresse_numero', 'adresse_rue', 'adresse_ville')
-    def validator_adresse(cls,v,field):
-        if field.name == 'adresse_numero':
+    def validator_adresse(cls,v,info):
+        if info.field_name == 'adresse_numero':
             return v
         if not v.strip():
-            raise ValueError(f'Le {field.name} ne doit pas être vide')
+            raise ValueError(f'Le {info.field_name} ne doit pas être vide')
         regex = ''
-        if field.name == 'adresse_rue':
+        if info.field_name == 'adresse_rue':
             regex = r"^[A-Za-zÀ-ÿ' -]+$"
-        if field.name == 'adresse_ville':
+        if info.field_name == 'adresse_ville':
             regex = r"^[A-Za-zÀ-ÿ' -]+$"
         if not re.match(regex,v):
-            raise ValueError(f'Le {field.name} est invalide')
+            raise ValueError(f'Le {info.field_name} est invalide')
         return v
