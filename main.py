@@ -47,6 +47,7 @@ async def inscription(pUtilisateur: schema_User, pConfirmerMDP: str, db: Session
                              nom=pUtilisateur.nom, 
                              surnom=pUtilisateur.surnom,
                              email=pUtilisateur.email,
+                             date_naissance=pUtilisateur.date_naissance,
                              adresse_numero=pUtilisateur.adresse_numero,
                              adresse_rue=pUtilisateur.adresse_rue,
                              adresse_ville=pUtilisateur.adresse_ville,

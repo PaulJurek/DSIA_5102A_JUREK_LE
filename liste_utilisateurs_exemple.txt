@@ -562,3 +562,215 @@
         "mot_de_passe": "securePass47"
     }
 ]
+
+[
+    {
+        "prenom": "Élise@",
+        "nom": "Durand#",
+        "surnom": "Eli",
+        "email": "elise.durand@example.com",
+        "date_naissance": "15/01/2011",
+        "adresse_numero": 1,
+        "adresse_rue": "Rue de l'École",
+        "adresse_ville": "Paris",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Tommy",
+        "nom": "Smith",
+        "surnom": "",
+        "email": "tommy.smith@examplecom",
+        "date_naissance": "34/02/2012",
+        "adresse_numero": 12,
+        "adresse_rue": "Boulevard des Fleurs",
+        "adresse_ville": "Lyon",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Lucas",
+        "nom": "Martin",
+        "surnom": "Lucky",
+        "email": "lucas.martin@example.com",
+        "date_naissance": "30/03/2013",
+        "adresse_numero": 23,
+        "adresse_rue": "Avenue des Champs",
+        "adresse_ville": "Marseille",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Zoé",
+        "nom": "Dupont$",
+        "surnom": "Z",
+        "email": "zoe.dupont@example.com",
+        "date_naissance": "17-04-2015",
+        "adresse_numero": 34,
+        "adresse_rue": "Rue de la Liberté",
+        "adresse_ville": "Toulouse",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Milo",
+        "nom": "Bernard",
+        "surnom": "",
+        "email": "milo.bernard@example.org",
+        "date_naissance": "01/05/2010",
+        "adresse_numero": 56,
+        "adresse_rue": "Avenue du Général",
+        "adresse_ville": "Nice",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Léa",
+        "nom": "Lefebvre",
+        "surnom": "Lele",
+        "email": "lea.lefebvre@example.com",
+        "date_naissance": "10/06/2014",
+        "adresse_numero": 78,
+        "adresse_rue": "Rue des Lilas",
+        "adresse_ville": "Nantes",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Nathan",
+        "nom": "Moreau&",
+        "surnom": "",
+        "email": "nathan.moreau@example.com",
+        "date_naissance": "22/07/2011",
+        "adresse_numero": 91,
+        "adresse_rue": "Boulevard de la Mer",
+        "adresse_ville": "Bordeaux",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Chloé",
+        "nom": "Garnier",
+        "surnom": "Clo",
+        "email": "chloe.garnier@example.com",
+        "date_naissance": "30/08/2009",
+        "adresse_numero": 45,
+        "adresse_rue": "Avenue de la Liberté",
+        "adresse_ville": "Strasbourg",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Théo",
+        "nom": "Roux",
+        "surnom": "",
+        "email": "theo.roux@invalid-email",
+        "date_naissance": "34/09/2012",
+        "adresse_numero": 64,
+        "adresse_rue": "Rue de l'Église",
+        "adresse_ville": "Lille",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Clara",
+        "nom": "Delaunay",
+        "surnom": "Clary",
+        "email": "clara.delaunay@example.com",
+        "date_naissance": "04/10/2013",
+        "adresse_numero": 76,
+        "adresse_rue": "Chemin de la Paix",
+        "adresse_ville": "Rennes",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Lou",
+        "nom": "Gerard",
+        "surnom": "",
+        "email": "lou.gerard@example.com",
+        "date_naissance": "19/11/2010",
+        "adresse_numero": 87,
+        "adresse_rue": "Boulevard des Arts",
+        "adresse_ville": "Amiens",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Eva",
+        "nom": "Morin",
+        "surnom": "E",
+        "email": "eva.morin@example.com",
+        "date_naissance": "34/12/2014",
+        "adresse_numero": 98,
+        "adresse_rue": "Rue de la République",
+        "adresse_ville": "Marseille",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Sacha",
+        "nom": "Dumas",
+        "surnom": "",
+        "email": "sacha.dumas@com",
+        "date_naissance": "01/01/2015",
+        "adresse_numero": 14,
+        "adresse_rue": "Rue des Écoles",
+        "adresse_ville": "Grenoble",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Émile",
+        "nom": "Valentin*",
+        "surnom": "E",
+        "email": "emile.valentin@example.com",
+        "date_naissance": "07/02/2008",
+        "adresse_numero": 29,
+        "adresse_rue": "Avenue de l'Étoile",
+        "adresse_ville": "Dijon",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Nora",
+        "nom": "Lemoine",
+        "surnom": "",
+        "email": "nora.lemoine@example.org",
+        "date_naissance": "28/03/2002",
+        "adresse_numero": 41,
+        "adresse_rue": "Boulevard de la Ville",
+        "adresse_ville": "Caen",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Léo",
+        "nom": "Giraud",
+        "surnom": "Leo",
+        "email": "leo.giraud@example.com",
+        "date_naissance": "34/05/2002",
+        "adresse_numero": 52,
+        "adresse_rue": "Rue des Sources",
+        "adresse_ville": "Saint-Étienne",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Anaïs",
+        "nom": "Faucher",
+        "surnom": "",
+        "email": "anais.faucher@example.com",
+        "date_naissance": "25/06/2002",
+        "adresse_numero": 68,
+        "adresse_rue": "Avenue de la Liberté",
+        "adresse_ville": "Nice",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Bastien",
+        "nom": "Lemoine$",
+        "surnom": "B",
+        "email": "bastien.lemoine@example.com",
+        "date_naissance": "03/07/2015",
+        "adresse_numero": 79,
+        "adresse_rue": "Rue du Parc",
+        "adresse_ville": "Nîmes",
+        "mot_de_passe": "pass1234"
+    },
+    {
+        "prenom": "Maya",
+        "nom": "Dufour",
+        "surnom": "Mai",
+        "email": "maya.dufour@example.com",
+        "date_naissance": "34/08/2014",
+        "adresse_numero": 84,
+        "adresse_rue": "Boulevard des Gens",
+        "adresse_ville": "Clermont-Ferrand",
+        "mot_de_passe": "pass1234"
+    }
+]

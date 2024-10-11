@@ -10,7 +10,7 @@ class model_User(BaseSQL):
     nom = Column(String)
     surnom = Column(String, nullable=True)
     email = Column(String)
-    date_naissance = Column(Date)
+    date_naissance = Column(Date, nullable=False)
     adresse_numero = Column(Integer)
     adresse_rue = Column(String)
     adresse_ville = Column(String)  

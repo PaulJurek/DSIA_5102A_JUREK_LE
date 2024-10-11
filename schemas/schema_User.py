@@ -17,7 +17,9 @@ class schema_User(BaseModel):
 
     @field_validator('prenom', 'nom', 'surnom')
     def validator_prenom_nom_surnom(cls, v, info):
-        if not v.strip():
+        if (v is None or not v.strip()):
+            if info.field_name == "surnom":
+                return v
             raise ValueError(f'Le {info.field_name} ne doit pas être vide')
         if len(v) > 32:
             raise ValueError(f'Le {info.field_name} ne doit pas dépasser les 32 caractères')
