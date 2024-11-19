@@ -1,13 +1,15 @@
-from pydantic import BaseModel, field_validator
-from datetime import datetime, date
+from pydantic import BaseModel, field_validator, Field
+from uuid import uuid4
+from typing_extensions import Annotated
 from typing import Optional
+from datetime import datetime, date
 import re
 
-class schema_User(BaseModel):
-
+class User(BaseModel):
+    id: Annotated[str, Field(default_factory=lambda: uuid4().hex)]
     prenom: str
     nom: str
-    surnom: Optional[str]
+    pseudo: Optional[str]
     email:str
     date_naissance: str
     adresse_numero: int
@@ -15,10 +17,10 @@ class schema_User(BaseModel):
     adresse_ville: str
     mot_de_passe: str
 
-    @field_validator('prenom', 'nom', 'surnom')
+    @field_validator('prenom', 'nom', 'pseudo')
     def validator_prenom_nom_surnom(cls, v, info):
         if (v is None or not v.strip()):
-            if info.field_name == "surnom":
+            if info.field_name == "pseudo":
                 return v
             raise ValueError(f'Le {info.field_name} ne doit pas être vide')
         if len(v) > 32:
@@ -70,3 +72,6 @@ class schema_User(BaseModel):
         if not re.match(regex,v):
             raise ValueError(f'Le {info.field_name} est invalide')
         return v
+    
+    class Config:
+        orm_mode = True

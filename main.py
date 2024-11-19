@@ -1,11 +1,16 @@
 from fastapi import FastAPI, Depends
-from datetime import datetime
-from sqlalchemy.dialects.postgresql import UUID
-from database import engine, BaseSQL, SessionLocal
 from fastapi.middleware.cors import CORSMiddleware
-from schemas.schema_User import schema_User
+from fastapi.requests import Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+
+from sqlalchemy.dialects.postgresql import UUID
+
+from models.database import engine, BaseSQL, get_db
+from schemas.users import User
 from sqlalchemy.orm import Session
-from models.models import model_User
+from models.user import User
 from uuid import uuid4
 
 app = FastAPI(
@@ -22,30 +27,26 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Dépendance pour obtenir la session de base de données
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 @app.on_event("startup")
 async def startup_event():
     BaseSQL.metadata.create_all(bind=engine)
 
-@app.get('/')
-async def get_root():
-    return {'message':datetime.now().strftime('%d/%m/%Y')}
+@app.get('/', response_class=HTMLResponse)
+async def root(request:Request):
+    return templates.TemplateResponse("accueil.html", {"request": request})
 
 @app.post('/auth/inscription')
 # Inscrition utilisateur
-async def inscription(pUtilisateur: schema_User, pConfirmerMDP: str, db: Session = Depends(get_db)):
+async def inscription(pUtilisateur: User, pConfirmerMDP: str, db: Session = Depends(get_db)):
     if pUtilisateur.mot_de_passe == pConfirmerMDP:
-        db_item = model_User(id=uuid4(), 
+        db_item = User(id=uuid4(), 
                              prenom=pUtilisateur.prenom, 
                              nom=pUtilisateur.nom, 
-                             surnom=pUtilisateur.surnom,
+                             pseudo=pUtilisateur.pseudo,
                              email=pUtilisateur.email,
                              date_naissance=pUtilisateur.date_naissance,
                              adresse_numero=pUtilisateur.adresse_numero,
@@ -60,21 +61,6 @@ async def inscription(pUtilisateur: schema_User, pConfirmerMDP: str, db: Session
 
 
 @app.post('/auth/connexion')
-# Connexion utilisateur
+# Connexion utilisateur,commercant
 async def connexion():
     pass
-
-# @app.delete('/user/desinscription/{id}')
-# # Desinscription utilisateur
-# async def desinscription(id: UUID):
-#     pass
-
-# @app.put('/user/modification/{id}')
-# # modification données utilisateur
-# async def modification(id: UUID):
-#     pass
-
-# @app.get('/user/consultation/{id}')
-# # consultations données utilisateur
-# async def consultation():
-#     pass

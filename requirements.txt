@@ -4,3 +4,5 @@ sqlalchemy
 pydantic==2.9.1
 psycopg2
 python-slugify
+pyjwt
+jinja2
