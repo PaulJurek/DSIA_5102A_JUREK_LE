@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supprimer un produit</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Supprimer un produit</h1>
+    </header>
+    <div class="container">
+        <div class="produit-list">
+            {% for produit in produits %}
+                <div class="produit-item">
+                    <h3>{{ produit.nom }}</h3>
+                    <a href="/produits/supprimer/{{ produit.id }}" class="btn-supprimer">Supprimer</a>
+                    <p>{{ produit.description }}</p>
+                    <p>Prix: {{ produit.prix }} €</p>
+                    <img src="{{ produit.imageurl }}" alt="{{ produit.nom }}">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <footer>
+        ouaisouaisouais
+    </footer>
+</body>
+</html>

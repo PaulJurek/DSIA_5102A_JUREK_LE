@@ -1,65 +1,77 @@
-from typing import List
-
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
-from datetime import datetime
+from typing import List
+from sqlalchemy.exc import SQLAlchemyError
 import models, schemas
 
-
-def get_all_produits(db: Session, skip: int = 0, limit: int = 10) -> List[models.Produit]:
+def get_liste_produits(db: Session, skip: int = 0, limit: int = 5) -> List[models.Produit]:
     records = db.query(models.Produit).filter().offset(skip).limit(limit).all()
+    if not records:
+        raise HTTPException(status_code=404, detail="Not Found")
     for record in records:
         record.id = str(record.id)
     return records
 
-
-def get_produit_by_id(Produit_id: str, db: Session) -> models.Produit:
-    record = db.query(models.Produit).filter(models.Produit.id == Produit_id).first()
+def get_produit_by_id(produit_id: str, db: Session) -> models.Produit:
+    record = db.query(models.Produit).filter(models.Produit.id == produit_id).first()
     if not record:
         raise HTTPException(status_code=404, detail="Not Found")
     record.id = str(record.id)
     return record
 
-
-def get_produits_by_nom(nom: str, db: Session) -> List[models.Produit]:
-    records = db.query(models.Produit).filter(models.Produit.nom == nom).all()
+def get_produit_par_nom(nom: str, db: Session) -> List[models.Produit]:
+    records = db.query(models.produit).filter(models.produit.nom == nom).all()
     for record in records:
         record.id = str(record.id)
     return records
 
+def post_produit(nom: str, description: str, prix: float, imageurl: str, db: Session):
+    try:
+        # Créer une instance du produit avec les données envoyées via le formulaire
+        nouveau_produit = models.Produit(
+            nom=nom,  # On passe la variable 'nom' directement ici
+            description=description,  # Idem pour 'description'
+            prix=prix,  # Idem pour 'prix'
+            imageurl=imageurl  # Idem pour 'imageurl'
+        )
+        
+        # Ajouter à la base de données
+        db.add(nouveau_produit)
+        db.commit()
+        db.refresh(nouveau_produit)  # Rafraîchir l'objet pour obtenir l'ID généré
+        
+        return {"message": "Produit ajouté avec succès", "produit": nouveau_produit}
 
-def update_produit_by_id(Produit_id: str, db: Session, Produit: schemas.Produit) -> models.Produit:
-    db_Produit = get_produit_by_id(Produit_id=Produit_id, db=db)
-    for var, value in vars(Produit).items():
-        setattr(db_Produit, var, value) if value else None
-    db.add(db_Produit)
-    db.commit()
-    db.refresh(db_Produit)
-    return db_Produit
+    except SQLAlchemyError as e:
+        db.rollback()  # Annuler la transaction en cas d'erreur
+        raise HTTPException(status_code=500, detail="Erreur lors de l'ajout du produit")
 
+def update_produit(produit_id: str, updated_data: dict, db: Session):
+    try:
+        produit = db.query(models.Produit).filter(models.Produit.id == produit_id).first()
+        if not produit:
+            raise HTTPException(status_code=404, detail="Produit non trouvé")
 
-def delete_produit_by_id(Produit_id: str, db: Session) -> models.Produit:
-    db_Produit = get_produit_by_id(Produit_id=Produit_id, db=db)
-    db.delete(db_Produit)
-    db.commit()
-    return db_Produit
+        # Mise à jour des champs
+        for key, value in updated_data.items():
+            setattr(produit, key, value)
 
+        db.commit()
+        db.refresh(produit)
+        return produit
+    except SQLAlchemyError as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail="Erreur lors de la modification")
 
-def delete_all_produits(db: Session) -> List[models.Produit]:
-    records = db.query(models.Produit).filter()
-    for record in records:
-        db.delete(record)
-    db.commit()
-    return records
+def delete_produit(produit_id: str, db: Session):
+    try:
+        produit = db.query(models.Produit).filter(models.Produit.id == produit_id).first()
+        if not produit:
+            raise HTTPException(status_code=404, detail="Produit non trouvé")
 
-
-def post_produit(db: Session, Produit: schemas.Produit) -> models.Produit:
-    record = db.query(models.Produit).filter(models.Produit.id == Produit.id).first()
-    if record:
-        raise HTTPException(status_code=409, detail="Already exists")
-    db_Produit = models.Produit(**Produit.dict())
-    db.add(db_Produit)
-    db.commit()
-    db.refresh(db_Produit)
-    db_Produit.id = str(db_Produit.id)
-    return db_Produit
+        db.delete(produit)
+        db.commit()
+        return {"message": "Produit supprimé avec succès"}
+    except SQLAlchemyError as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail="Erreur lors de la suppression")

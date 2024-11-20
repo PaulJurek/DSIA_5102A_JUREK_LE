@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ouep OK</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+
+        .banniere {
+            background-color: lightblue;
+            text-align: center;
+            padding: 20px;
+            font-size: 2em;
+            color: black;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: lightblue;
+            border: none;
+            color: black;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .bas-de-page {
+            background-color: lightblue;
+            text-align: center;
+            padding: 10px;
+            font-size: 1em;
+            color: black;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="banniere">
+        Ajouter un produit
+    </div>
+
+    <div class="form-container">
+        <h2>Formulaire d'ajout de produit</h2>
+        <form action="/produits/ajouter" method="post">
+            <label for="nom">Nom du produit :</label>
+            <input type="text" id="nom" name="nom" required>
+
+            <label for="description">Description :</label>
+            <input type="text" id="description" name="description">
+
+            <label for="prix">Prix :</label>
+            <input type="number" id="prix" name="prix" step="0.01" required>
+
+            <label for="imageurl">URL de l'image :</label>
+            <input type="text" id="imageurl" name="imageurl">
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+
+    <div class="bas-de-page">
+        ouaisouaisouais
+    </div>
+
+</body>
+</html>
