@@ -42,6 +42,24 @@ async def modifier_produit_form(request: Request, produit_id: str, db: Session =
         raise HTTPException(status_code=404, detail="Produit non trouvé")
     return templates.TemplateResponse("modifier_form.html", {"request": request, "produit": produit})
 
+# Traitement des modifications
+@router.post("/modifier/{produit_id}", tags=["produits"])
+async def modifier_produit(produit_id: str, nom: str = Form(...), description: str = Form(None), prix: float = Form(...), imageurl: str = Form(None), db: Session = Depends(models.get_db)):
+    updated_data = {
+        "nom": nom,
+        "description": description,
+        "prix": prix,
+        "imageurl": imageurl
+    }
+    produit_service.update_produit(produit_id, updated_data, db)
+    return RedirectResponse(url="/produits", status_code=303)
+
+# Page pour sélectionner un produit à supprimer
+@router.get("/supprimer", tags=["produits"])
+async def supprimer_produit_selection(request: Request, db: Session = Depends(models.get_db)):
+    produits = produit_service.get_liste_produits(db=db, limit=100)
+    return templates.TemplateResponse("supprimer_produit.html", {"request": request, "produits": produits})
+
 # Supprimer un produit spécifique
 @router.post("/supprimer/{produit_id}", tags=["produits"])
 async def supprimer_produit(produit_id: str, db: Session = Depends(models.get_db)):
