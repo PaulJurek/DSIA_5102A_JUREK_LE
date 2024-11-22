@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la Commande</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Détails de la Commande</h1>
+    </header>
+    <div class="container">
+        <h3>ID de la commande : {{ commande.id }}</h3>
+        <p>Date de commande : {{ commande.date_commande }}</p>
+        <p>Total : {{ commande.total }} €</p>
+        <h4>Produits :</h4>
+        <ul>
+            {% for produit in commande.produits %}
+                <li>{{ produit.nom }} ({{ produit.prix }} €)</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

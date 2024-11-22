@@ -1,0 +1,177 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    text-align: center;
+}
+
+header {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    text-align: center;
+    padding: 10px 0;
+}
+
+footer {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: auto; /* Pousse la bannière vers le bas si le contenu est petit */
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    flex: 1;
+    text-align: center;
+}
+
+/* Styles pour les tableaux */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+/* Supprime les points des listes, s'il y a des éléments de type liste */
+ul, li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Centrage parfait des éléments enfants dans produit-item */
+.produit-item {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    flex-direction: column; /* Aligne les éléments verticalement */
+}
+
+h1 {
+    color: #333;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+img {
+    max-width: 100px;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Styles pour l'entête avec bouton (ajouter un produit ou autre) */
+.header-with-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-with-button h1 {
+    margin: 0;
+}
+
+.button {
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: #218838;
+}
+
+/* Style de la liste des commandes */
+.commande-item {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between; /* Espacement entre les éléments d'une commande */
+    align-items: center;
+}
+
+.commande-item h3 {
+    margin: 0;
+}
+
+.commande-item .commande-details {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+/* Boutons dans les pages de commandes */
+.commande-button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.commande-button:hover {
+    background-color: #0056b3;
+}
+
+.commande-item .commande-details p {
+    margin: 5px 0;
+}
+
+/* Responsivité pour les petits écrans */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    table th, table td {
+        padding: 8px;
+    }
+
+    .header-with-button {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .button {
+        margin-top: 10px;
+    }
+}
