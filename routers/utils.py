@@ -1,7 +1,7 @@
 import jwt
 from fastapi import HTTPException
 
-from services.auth import JWT_SECRET_KEY, JWT_SECRET_ALGORITHM
+from ..services.auth import JWT_SECRET_KEY, JWT_SECRET_ALGORITHM
 
 
 def verify_autorization_header(access_token: str):

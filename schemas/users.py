@@ -75,3 +75,10 @@ class User(BaseModel):
     
     class Config:
         orm_mode = True
+
+class User_infos_de_connexion(BaseModel):
+    pseudo: str
+    mot_de_passe: str
+
+    class Config:
+        orm_mode = True

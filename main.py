@@ -6,15 +6,13 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import Session
 
 from models.database import engine, BaseSQL, get_db
-from schemas.users import User
-from sqlalchemy.orm import Session
-from models.user import User
-from uuid import uuid4
+import routers
 
 app = FastAPI(
-    title="My title",
+    title="Mon site de e-commerce",
     description="My description",
     version="0.0.1"
 )
@@ -26,6 +24,11 @@ app.add_middleware(
     allow_methods=[""],
     allow_headers=["*"],
 )
+
+app.include_router(routers.auth_router)
+app.include_router(routers.user_router)
+app.include_router(routers.post_router)
+
 
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -39,28 +42,3 @@ async def startup_event():
 async def root(request:Request):
     return templates.TemplateResponse("accueil.html", {"request": request})
 
-@app.post('/auth/inscription')
-# Inscrition utilisateur
-async def inscription(pUtilisateur: User, pConfirmerMDP: str, db: Session = Depends(get_db)):
-    if pUtilisateur.mot_de_passe == pConfirmerMDP:
-        db_item = User(id=uuid4(), 
-                             prenom=pUtilisateur.prenom, 
-                             nom=pUtilisateur.nom, 
-                             pseudo=pUtilisateur.pseudo,
-                             email=pUtilisateur.email,
-                             date_naissance=pUtilisateur.date_naissance,
-                             adresse_numero=pUtilisateur.adresse_numero,
-                             adresse_rue=pUtilisateur.adresse_rue,
-                             adresse_ville=pUtilisateur.adresse_ville,
-                             mot_de_passe=pUtilisateur.mot_de_passe)
-        db.add(db_item)
-        db.commit()
-        db.refresh(db_item)
-        return {'message': 'Inscription réussie'}
-    return {'message': 'Les mots de passe ne correspondent pas'}
-
-
-@app.post('/auth/connexion')
-# Connexion utilisateur,commercant
-async def connexion():
-    pass

@@ -6,8 +6,8 @@ from sqlalchemy.orm import Session
 from typing import Dict, Union, List
 from datetime import datetime, timedelta, timezone
 
-import models.user as model_user
-from schemas.users import User as schemas_user
+from ..models import user as model_user
+from ..schemas.users import User as schemas_user
 
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "should-be-an-environment-variable")
 JWT_SECRET_ALGORITHM = os.getenv("JWT_SECRET_ALGORITHM", "HS256")

@@ -3,21 +3,34 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from models.database import get_db
-from schemas.users import User
-from services.users import create_user
+from ..models.database import get_db
+from ..schemas.users import User, User_infos_de_connexion
+from ..services.users import create_user
+from ..services.auth import generate_access_token
+
 
 user_router = APIRouter(prefix="/users")
-
 
 @user_router.post("/", tags=["users"])
 async def post_user(user: User, db: Session = Depends(get_db)):
     return create_user(user=user, db=db)
 
-@user_router.get('/consultation/{id}')
+@user_router.post('/auth/connexion')
+# Connexion utilisateur,commercant
+async def connexion(user_login: User_infos_de_connexion):
+    access_token = generate_access_token(db=get_db, user_login=user_login)
+    return {"access_token": access_token, "token_type": "bearer"}
+
+@user_router.get('/consultation/{id}', tag=["users"])
 # consultations données utilisateur
 async def consultation():
     pass
+
+@user_router.post('/auth/inscription', tag=["users"])
+# Inscrition utilisateur
+async def inscription(pConfirmerMDP: str, pUtilisateur: User,db: Session = Depends(get_db) ):
+    create_user(db=db, user=pUtilisateur, pConfirmerMDP=pConfirmerMDP)
+
 
 @user_router.delete('/desinscription/', tag=["users"])
 # Desinscription utilisateur
