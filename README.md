@@ -9,7 +9,7 @@
 
 
 ## Description
-Cette application est une ébauche d'une plateforme e-commerce. Elle est développée avec le framework FastAPI. En back-end, nous réalisons des requêtes vers une base de données postgresql afin d'obtenir pour chaque client de la plateforme de réaliser des commandes. Pour le producteur cela permet de visualiser ses ventes. L'application est sécurisée avec un système d'authentification avec récupération d’un JWT à l’aide d’un username / password.
+Cette application est une ébauche d'une plateforme e-commerce. Ce site permet à un agriculteur de vendre directement ses produits en circuit court à ses clients en ligne. Elle est développée avec le framework FastAPI. En back-end, nous réalisons des requêtes vers une base de données postgresql afin d'obtenir pour chaque client de la plateforme de réaliser des commandes. Pour le producteur cela permet de visualiser ses ventes. L'application est sécurisée avec un système d'authentification avec récupération d’un JWT à l’aide d’un username / password.
 
 ## Pré-requis
 Ce projet nécessite l'utilisation de Docker. S'il n'est pas déjà téléchargé :
@@ -48,7 +48,19 @@ docker-compose up -d
 
 Enfin il suffit de se rendre sur l'adresse IP https://127.0.0.1:5000.
 
+## Problèmes rencontrés
 
+Le temps accordé pour développer le projet était assez cours, ce qui nous a demandé beaucoup d'efforts pour assimiler rapidement toutes les notions vues en cours (notamment pour l'authentification jwt) 
+
+A ce propos, un des membres du groupe n'avait encore jamais travaillé sur docker auparavent, il a donc fallu prendre le temps de lui faire revoir tous les concepts et les opérations utiles pour par la suite réussir à se répartir le travail indépendamment des contraintes logicielles. Les premiers TP bien que très utiles et instructifs ne lui suffisaient pas à bien assimiler les concepts.
+
+De plus, même si le côté front-end n'était pas un critère d'évaluation, nous avons estimé que réaliser une application full-stack sans front aurait été dommage. Nous nous sommes donc investis afin de comprendre comemnt fonctionne le moteur de template Jinja et mobiliser des connaissances pas toujours complètement acquises en HTML et CSS.
+
+Enfin, dans l'architecture du projet, nous avons des modèles permettant de spécifier sous quel format les données sont sauvegardées sous forme d'attributs dans la base de données. Les interactions entre les attributs avec la notion de clés primaire et étrangères venait juste d'être découverte dans le cadre du développement d'API. Cela aussi nous a demandé du temps pour réaliser les opérations correctement.
+
+## Point d'amélioration
+
+Avec plus de temps, nous aurions aimé écrire des tests unitaires, s'ils avaient pu être abordés dans le cours.
 
 ## Contributeurs
 
