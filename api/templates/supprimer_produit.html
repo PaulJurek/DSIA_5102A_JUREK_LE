@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles.css">
+    <title>Modifier un produit</title>
+</head>
+<body>
+    <header>
+        <h1>Ouep OK</h1>
+    </header>
+    
+    <div class="form-container">
+        <h2>Formulaire de suppression de produit</h2>
+        <form action="/produits/supprimer/{{produit.id}}" method="post">
+            <label for="nom">Nom du produit :</label>
+            <label for="nom">{{ produit.nom }}</label>
+
+            <label for="description">Description :</label>
+            <label for="description">{{ produit.description }}</label>
+
+            <label for="prix">Prix :</label>
+            <label for="prix">{{ produit.prix }}</label>
+
+            <label for="imageurl">URL de l'image :</label>
+            <label for="imageurl">{{ produit.imageurl }}</label>
+
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+    
+    <footer class="footer">
+        <p>Bannière ou informations en bas de page</p>
+    </footer>
+</body>
+</html>

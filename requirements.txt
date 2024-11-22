@@ -1,8 +1,9 @@
-fastapi 
 starlette_exporter
 sqlalchemy
-pydantic==2.9.1
+pydantic
 psycopg2
 python-slugify
 pyjwt
-jinja2
+fastapi
+passlib
+python-jose

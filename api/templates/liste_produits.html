@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produits</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Bonjour {{ nom_utilisateur }}</h1>
+        <a href="/panier" class="button">Mon panier</a>
+        <a href="/commandes" class="button">Mes commandes</a>
+        <a href="/auth/deconnexion" class="button">Se deconnecter</a>
+        <a href="/commandes/voircommandes" class="button">Gérer les commandes</a>
+    </header>
+    <main>
+        <h1>Liste des produits</h1>
+        <a href="/produits/ajouter" class="button">Ajouter un produit</a>
+        <ul class="produit-liste">
+            {% for produit in produits %}
+            <li class="produit-item">
+                <div class="produit-details">
+                    <h2>{{ produit.nom }}</h2>
+                    <!-- Ajouter les boutons ici -->
+                    <a href="/produits/modifier/{{ produit.id }}" class="button">Modifier</a>
+                    <a href="/produits/supprimer/{{ produit.id }}" class="button">Supprimer</a>
+                    <h3>{{ produit.description }}</h3>
+                    <h3>Prix : {{ produit.prix }} €</h3>
+                    <form action="/panier/ajouter/{{ produit.id }}" method="post">
+                        <label for="quantite">Quantite</label>
+                        <input type="text" id="quantite" name="quantite" value="1"required>
+            
+                        <button type="submit">Ajouter au panier</button>
+                    </form>
+                </div>
+                <div class="produit-image">
+                    <img src="{{ produit.imageurl }}" alt="{{ produit.nom }}">
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <div class="pagination">
+            {% if skip > 0 %}
+            <a href="/produits?skip={{ skip - limit }}" class="btn-pagination">Page précédente</a>
+            {% endif %}
+            {% if produits|length == limit %}
+            <a href="/produits?skip={{ skip + limit }}" class="btn-pagination">Page suivante</a>
+            {% endif %}
+        </div>
+    </main>
+    <footer>
+        <h3>ouaisouaisouais</h3>
+    </footer>
+</body>
+</html>

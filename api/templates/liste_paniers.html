@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produits</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Ouep OK</h1>
+        <a href="/produits" class="button">Retourner au catalogue</a>
+    </header>
+    <main>
+        <h1>Mon Panier</h1>
+        <ul class="produit-liste">
+            {% for panier in paniers %}
+            <li class="produit-item">
+                <div class="produit-details">
+                    <h2>{{ panier.nom_produit }}</h2>
+                    <!-- Ajouter les boutons ici -->
+                    <form action="/panier/supprimer/{{ panier.id }}" method="post">
+                        <button type="submit" class="button">Supprimer</button>
+                    </form>
+                    <h3>Quantité : {{ panier.quantite }}</h3>
+                    <h3>Prix : {{ panier.prix_total }} €</h3>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <h1>"Prix du panier : {{grand_total}} €"</h1>
+        <a href="/panier/commander" class="button">Commander mon panier</a>
+    </main>
+    <footer>
+        <h3>ouaisouaisouais</h3>
+    </footer>
+</body>
+</html>
