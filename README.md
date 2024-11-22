@@ -9,7 +9,7 @@
 
 
 ## Description
-Cette application est une ébauche d'une plateforme e-commerce. Elle est développée avec le framework FastAPI. En back-end, nous réalisons des requêtes vers une base de données postgresql afin d'obtenir pour chaque client de la plateforme de réaliser des commandes. Pour le producteur cela permet de visualiser ses ventes. L'application est sécurisée avec un système d'authentification avec récupération d’un JWT à l’aide d’un username / password.
+Cette application est une ébauche d'une plateforme e-commerce. Ce site permet à un agriculteur de vendre directement ses produits en circuit court à ses clients en ligne. Elle est développée avec le framework FastAPI. En back-end, nous réalisons des requêtes vers une base de données postgresql afin d'obtenir pour chaque client de la plateforme de réaliser des commandes. Pour le producteur cela permet de visualiser ses ventes. L'application est sécurisée avec un système d'authentification avec récupération d’un JWT à l’aide d’un username / password.
 
 ## Pré-requis
 Ce projet nécessite l'utilisation de Docker. S'il n'est pas déjà téléchargé :
