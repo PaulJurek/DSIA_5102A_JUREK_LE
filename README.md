@@ -50,9 +50,9 @@ Enfin il suffit de se rendre sur l'adresse IP https://127.0.0.1:5000.
 
 ## Problèmes rencontrés
 
-La période de développement du projet était assez rapide, ce qui nous a demandé beaucoup d'efforts pour assimiler toutes les notions vues en cours (notamment pour l'authentification jwt)
+Le temps accordé pour développer le projet était assez cours, ce qui nous a demandé beaucoup d'efforts pour assimiler rapidement toutes les notions vues en cours (notamment pour l'authentification jwt) 
 
-Par ailleurs un des membres du groupe n'avait encore jamais travaillé sur docker auparavent, il a donc fallu prendre le temps de revoir tous les concepts et les opérations possibles pour par la suite réussir à se répartir le travail indépendamment des contraintes logicielles. Les premiers TP bien que très utiles et instructifs ne lui suffisaient pas à bien assimiler les concepts.
+A ce propos, un des membres du groupe n'avait encore jamais travaillé sur docker auparavent, il a donc fallu prendre le temps de lui faire revoir tous les concepts et les opérations utiles pour par la suite réussir à se répartir le travail indépendamment des contraintes logicielles. Les premiers TP bien que très utiles et instructifs ne lui suffisaient pas à bien assimiler les concepts.
 
 De plus, même si le côté front-end n'était pas un critère d'évaluation, nous avons estimé que réaliser une application full-stack sans front aurait été dommage. Nous nous sommes donc investis afin de comprendre comemnt fonctionne le moteur de template Jinja et mobiliser des connaissances pas toujours complètement acquises en HTML et CSS.
 
