@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produits</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Ouep OK</h1>
+        <a href="/produits" class="button">Retourner au catalogue</a>
+    </header>
+    <main>
+        <h1>Gérer les Commandes</h1>
+        <ul class="produit-liste">
+            {% for commande in commandes %}
+            <li class="produit-item">
+                <div class="produit-details">
+                    <h2>{{ commande.nom_produit }}</h2>
+                    <!-- Ajouter les boutons ici -->
+                    <h3>Quantité : {{ commande.quantite }}</h3>
+                    <form action="/commandes/supprimer/{{ commande.id }}" method="post">
+                        <button type="submit" class="button">Supprimer</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </main>
+    <footer>
+        <h3>ouaisouaisouais</h3>
+    </footer>
+</body>
+</html>

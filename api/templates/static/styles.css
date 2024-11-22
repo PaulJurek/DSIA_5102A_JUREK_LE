@@ -74,6 +74,7 @@ h1 {
 }
 
 button {
+    white-space: nowrap;
     background-color: #007bff;
     color: white;
     border: none;
@@ -120,42 +121,6 @@ img {
     background-color: #218838;
 }
 
-/* Style de la liste des commandes */
-.commande-item {
-    border-bottom: 1px solid #ccc;
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between; /* Espacement entre les éléments d'une commande */
-    align-items: center;
-}
-
-.commande-item h3 {
-    margin: 0;
-}
-
-.commande-item .commande-details {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-/* Boutons dans les pages de commandes */
-.commande-button {
-    background-color: #007bff;
-    color: white;
-    padding: 8px 12px;
-    text-decoration: none;
-    border-radius: 4px;
-}
-
-.commande-button:hover {
-    background-color: #0056b3;
-}
-
-.commande-item .commande-details p {
-    margin: 5px 0;
-}
-
 /* Responsivité pour les petits écrans */
 @media (max-width: 600px) {
     .container {
@@ -174,4 +139,45 @@ img {
     .button {
         margin-top: 10px;
     }
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-container input {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: lightblue;
+    border: none;
+    color: black;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background-color: #4CAF50;
+    color: white;
 }

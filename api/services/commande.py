@@ -1,59 +1,24 @@
-# services/commande.py
-from fastapi import HTTPException
 from sqlalchemy.orm import Session
-from sqlalchemy.exc import SQLAlchemyError
-from typing import List  # Assurez-vous que List est importé
-import models
+from fastapi import HTTPException
+from typing import List
+from models import model_Panier
+from models import model_Utilisateur
 
-# Récupérer toutes les commandes avec pagination
-def get_liste_commandes(db: Session, skip: int = 0, limit: int = 10):
-    commandes = db.query(models.Commande).offset(skip).limit(limit).all()
-    if not commandes:
-        raise HTTPException(status_code=404, detail="Aucune commande trouvée")
-    return commandes
+def get_liste_commandes_utilisateur(db: Session, nom_utilisateur: str) -> List[model_Panier]:
+    db.query(model_Utilisateur).filter(model_Utilisateur.nom_utilisateur==nom_utilisateur).first()
+    records = db.query(model_Panier).filter(model_Panier.nom_utilisateur==nom_utilisateur, model_Panier.commande==1).all()
+    if not records:
+        raise HTTPException(status_code=404, detail="Not Found")
+    for record in records:
+        record.id = str(record.id)
+        record.nom_produit = record.nom_produit
+    return records
 
-# Récupérer une commande par son ID
-def get_commande_by_id(commande_id: str, db: Session):
-    commande = db.query(models.Commande).filter(models.Commande.id == commande_id).first()
-    if not commande:
-        raise HTTPException(status_code=404, detail="Commande non trouvée")
-    return commande
-
-def post_commande(produits_ids: List[str], db: Session):
-    # Récupérer les produits depuis la base de données en fonction des IDs
-    produits = db.query(models.Produit).filter(models.Produit.id.in_(produits_ids)).all()
-
-    if not produits:
-        raise HTTPException(status_code=404, detail="Produits non trouvés")
-
-    # Calculer le total de la commande
-    total = sum([produit.prix for produit in produits])
-
-    # Créer la commande avec le total calculé
-    nouvelle_commande = models.Commande(total=total)
-
-    # Ajouter la commande dans la base de données
-    db.add(nouvelle_commande)
-    db.commit()
-    db.refresh(nouvelle_commande)
-
-    # Ajouter les produits à la commande (en utilisant la relation many-to-many)
-    nouvelle_commande.produits = produits
-    db.commit()
-
-    return {"message": "Commande ajoutée avec succès", "commande": nouvelle_commande}
-
-# Supprimer une commande
-def delete_commande(commande_id: str, db: Session):
-    try:
-        commande = db.query(models.Commande).filter(models.Commande.id == commande_id).first()
-        if not commande:
-            raise HTTPException(status_code=404, detail="Commande non trouvée")
-        
-        db.delete(commande)
-        db.commit()
-        
-        return {"message": "Commande supprimée avec succès"}
-    except SQLAlchemyError:
-        db.rollback()
-        raise HTTPException(status_code=500, detail="Erreur lors de la suppression de la commande")
+def get_commandes(db: Session) -> List[model_Panier]:
+    records = db.query(model_Panier).filter(model_Panier.commande==1).all()
+    if not records:
+        raise HTTPException(status_code=404, detail="Not Found")
+    for record in records:
+        record.id = str(record.id)
+        record.nom_produit = record.nom_produit
+    return records

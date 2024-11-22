@@ -1,47 +1,63 @@
-# routers/commande.py
-from fastapi import APIRouter, Depends, Form, HTTPException, Request
+from fastapi import APIRouter, Request, Depends, HTTPException, Form
 from fastapi.templating import Jinja2Templates
-from sqlalchemy.orm import Session
 from fastapi.responses import RedirectResponse
-import models
+from sqlalchemy.orm import Session
+from jose.exceptions import JWTError
+from models import get_db
+from services import auth as auth_service
+from services import utilisateur as utilisateur_service
 from services import commande as commande_service
-from typing import List
+from services import panier as panier_service
 
 router = APIRouter(prefix="/commandes")
 
 # Configuration de Jinja2Templates
 templates = Jinja2Templates(directory="../api/templates")
 
-# Route pour afficher toutes les commandes
 @router.get("/", tags=["commandes"])
-async def get_commandes(request: Request, db: Session = Depends(models.get_db), skip: int = 0, limit: int = 10):
-    # Récupérer la liste des commandes depuis la base de données avec pagination
-    commandes = commande_service.get_liste_commandes(db=db, skip=skip, limit=limit)
+async def get_commandes(request: Request, db: Session = Depends(get_db)):
+    token = request.cookies.get("access_token")
+    if not token or not token.startswith("Bearer "):
+        return RedirectResponse(url="/auth/connexion", status_code=303)
+    try:
+        nom_utilisateur = await auth_service.get_nom_utilisateur(token)
+    except JWTError:
+        pass
+
+    utilisateur = utilisateur_service.get_utilisateur_par_nom(db=db, nom_utilisateur=nom_utilisateur)
+    if not utilisateur:
+        raise HTTPException(status_code=404, detail="Utilisateur non trouvé")
     
-    # Passer les commandes et les paramètres de pagination au template
-    return templates.TemplateResponse("commandes.html", {"request": request, "commandes": commandes, "skip": skip, "limit": limit})
+    commandes = commande_service.get_liste_commandes_utilisateur(db=db, nom_utilisateur=utilisateur.nom_utilisateur)
+    return templates.TemplateResponse("liste_commandes.html", {"request": request, "commandes": commandes})
 
-# Route pour afficher une page de détail d'une commande
-@router.get("/{commande_id}", tags=["commandes"])
-async def get_commande_detail(request: Request, commande_id: str, db: Session = Depends(models.get_db)):
-    commande = commande_service.get_commande_by_id(commande_id, db)
-    if not commande:
-        raise HTTPException(status_code=404, detail="Commande non trouvée")
-    
-    return templates.TemplateResponse("commande_detail.html", {"request": request, "commande": commande})
+@router.get("/voircommandes", tags=["commandes"])
+async def get_toutes_les_commandes(request: Request, db: Session = Depends(get_db)):
+    token = request.cookies.get("access_token")
+    if not token or not token.startswith("Bearer "):
+        return RedirectResponse(url="/auth/connexion", status_code=303)
+    try:
+        nom_utilisateur = await auth_service.get_nom_utilisateur(token)
+    except JWTError:
+        pass
+    if not utilisateur_service.utilisateur_est_admin(db=db,nom_utilisateur=nom_utilisateur):
+        raise HTTPException(status_code=403, detail="Accès refusé") 
+    commandes = commande_service.get_commandes(db=db)
+    return templates.TemplateResponse("toutes_commandes.html", {"request": request, "commandes": commandes})
 
-# Route pour créer une nouvelle commande
-@router.get("/ajouter", tags=["commandes"])
-async def ajouter_commande(request: Request):
-    return templates.TemplateResponse("ajouter_commande.html", {"request": request})
-
-# Route pour ajouter une commande
-@router.post("/ajouter", tags=["commandes"])
-async def ajouter_commande_post(db: Session = Depends(models.get_db), produits_ids: List[str] = Form(...)):
-    return commande_service.post_commande(produits_ids=produits_ids, db=db)
-
-# Route pour supprimer une commande spécifique
 @router.post("/supprimer/{commande_id}", tags=["commandes"])
-async def supprimer_commande(commande_id: str, db: Session = Depends(models.get_db)):
-    commande_service.delete_commande(commande_id, db)
-    return RedirectResponse(url="/commandes", status_code=303)
+async def supprimer_commande(request: Request, commande_id: str, db: Session = Depends(get_db)):
+    token = request.cookies.get("access_token")
+    if not token or not token.startswith("Bearer "):
+        return RedirectResponse(url="/auth/connexion", status_code=303)
+    try:
+        nom_utilisateur = await auth_service.get_nom_utilisateur(token)
+    except JWTError:
+        pass
+    if not utilisateur_service.utilisateur_est_admin(db=db,nom_utilisateur=nom_utilisateur):
+        raise HTTPException(status_code=403, detail="Accès refusé") 
+    panier = panier_service.get_panier_by_id(db=db,panier_id=commande_id)
+    if not panier:
+        raise HTTPException(status_code=404, detail="Panier non trouvé")
+    panier_service.delete_panier(db=db,panier_id=commande_id)
+    return RedirectResponse(url="/voircommandes", status_code=303)

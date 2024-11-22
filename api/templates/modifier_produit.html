@@ -3,28 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modifier un produit</title>
+    <title>Ouep OK</title>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
     <header>
-        <h1>Modifier un produit</h1>
+        <h1>Ouep OK</h1>
     </header>
-    <div class="container">
-        <div class="produit-list">
-            {% for produit in produits %}
-                <div class="produit-item">
-                    <strong>{{ produit.nom }}</strong>
-                    <a href="/produits/modifier/{{ produit.id }}" class="btn-modifier">Modifier</a>
-                    <p>{{ produit.description }}</p>
-                    <p>Prix: {{ produit.prix }} €</p>
-                    <img src="{{ produit.imageurl }}" alt="{{ produit.nom }}">
-                </div>
-            {% endfor %}
-        </div>
+
+    <div class="form-container">
+        <h2>Formulaire de modification de produit</h2>
+        <form action="/produits/modifier/{{produit.id}}" method="post">
+            <label for="nom">Nom du produit :</label>
+            <input type="text" id="nom" name="nom" value="{{ produit.nom }}" required>
+
+            <label for="description">Description :</label>
+            <input type="text" id="description" name="description" value="{{ produit.description }}">
+
+            <label for="prix">Prix :</label>
+            <input type="number" id="prix" name="prix" step="0.01" value="{{ produit.prix }}" required>
+
+            <label for="imageurl">URL de l'image :</label>
+            <input type="text" id="imageurl" name="imageurl" value="{{ produit.imageurl }}">
+
+            <button type="submit">Valider</button>
+        </form>
     </div>
-    <footer>
-        ouaisouaisouais
+    <footer class="footer">
+        <p>Bannière ou informations en bas de page</p>
     </footer>
 </body>
 </html>
