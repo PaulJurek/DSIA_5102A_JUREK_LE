@@ -43,10 +43,42 @@ docker-compose build
 Lancer  l'exécution du projet avec la commande 
 
 ``
-docker-compose up -d
+docker-compose up -build
 ``
 
 Enfin il suffit de se rendre sur l'adresse IP https://127.0.0.1:5000.
+
+## Remplir les db la première fois
+
+Ce projet utilise 3 db postgre "UTILISATEURS", "PRODUITS" et "PANIERS". Comme nous ne savons pas comment transmettre des db déja remplies via GITHUB, voilà une liste de commandes SQL pour pouvoir commencer à utiliser l'application : 
+
+``
+INSERT INTO "PRODUITS" (id, nom, description, prix, imageurl) VALUES
+('3f12fa8c-d3be-4a3b-8835-b01c02d3b9d7', 'Carotte', 'Légume racine riche en vitamine A', 1.25, 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Carrots_on_Display.jpg/800px-Carrots_on_Display.jpg'),
+('2f99e81c-8cd1-45f6-95f3-2454e3a50432', 'Tomate', 'Fruit juteux, idéal pour les salades', 2.50, 'https://www.lesfruitsetlegumesfrais.com/app/uploads/cache/2021/03/tomate/2511319199.png'),
+('f5e0c75e-bf72-46f9-bf5e-88a63bfe5b8f', 'Pomme de terre', 'Légume polyvalent pour divers plats', 0.80, 'https://www.marechal-fraicheur.fr/media/cache/synolia_cms_image_mobile_max_size/media/file/a5/e6/e9458c7ba03d4d96717bb924be24.jpg'),
+('1be25b96-d14e-485f-9b0f-e6b59e94f91b', 'Oignon', 'Ingrédient de base pour de nombreuses recettes', 1.00, 'https://media.venturatravel.org/unsafe/800x600/smart/gal/animal/galapagos-fur-seal-1.jpg'),
+('ee768b0f-cbf2-45b7-a2ba-29ad47064d38', 'Courgette', 'Légume léger et savoureux', 2.00, 'https://media.venturatravel.org/unsafe/800x600/smart/gal/animal/galapagos-fur-seal-1.jpg'),
+('1e68bda9-98ca-42b9-8e36-c02d1e3e5053', 'Aubergine', 'Légume tendre pour les gratins', 2.20, 'https://media.venturatravel.org/unsafe/800x600/smart/gal/animal/galapagos-fur-seal-1.jpg'),
+('0aeeeb59-f9ad-44bc-a4a4-229faec87b98', 'Brocoli', 'Source importante de vitamine C', 2.40, 'https://media.venturatravel.org/unsafe/800x600/smart/gal/animal/galapagos-fur-seal-1.jpg'),
+('e2c9d4a7-2be0-4878-944f-28b4b95f48c6', 'Poivron rouge', 'Légume coloré, riche en antioxydants', 2.50, 'https://media.venturatravel.org/unsafe/800x600/smart/gal/animal/galapagos-fur-seal-1.jpg'),
+('17b26a6b-77cd-4239-b4b7-fd8debb7fc0d', 'Salade verte', 'Légume frais, parfait pour accompagner vos plats', 1.30, 'https://media.venturatravel.org/unsafe/800x600/smart/gal/animal/galapagos-fur-seal-1.jpg'),
+('7a214b6c-073b-428f-b5ec-437c0c68d531', 'Céleri', 'Légume croquant et rafraîchissant', 1.80, 'https://media.venturatravel.org/unsafe/800x600/smart/gal/animal/galapagos-fur-seal-1.jpg'),
+('c988f62b-1336-41a7-9c45-f8a22b7b4c1a', 'Radis', 'Petit légume piquant, idéal en salade', 1.00, 'https://media.venturatravel.org/unsafe/800x600/smart/gal/animal/galapagos-fur-seal-1.jpg'),
+('83b378e6-35ad-41ca-8d42-605ecb4c0197', 'Concombre', 'Légume frais et hydratant', 1.50, 'https://media.venturatravel.org/unsafe/800x600/smart/gal/animal/galapagos-fur-seal-1.jpg');
+``
+
+Ensuite, vous pouvez lancer l'application grace au docker-compose. En visitant votre http://localhost:5000/produits, vous vous retrouverez face à une page de connexion, inscrivez vous d'abord puis connectez vous et commencer à utiliser l'application : voir le catalogue de produits, constituer un panier et commander.
+
+Cependant, certaines options vous sont bloquées, ce sont les actions côté commerçant. Vous pouvez accéder à ces parties en vous connectant avec un utilisateur admin.
+Etant donné que les mots de passe sont chiffrés, nous n'avons pas de commande toute faite avec des utilisateurs déjà préparés. Ainsi, voici la commande SQL pour rendre votre propre compte admin : 
+
+``
+UPDATE "UTILISATEURS" SET admin=1 WHERE nom_utilisateur='votre_nom';
+``
+En remplaçant 'votre_nom' par l'identifiant utilisé pour vous connecter.
+
+Vous avez maintenant accès aux fonctions commerçant comme ajouter, modifier ou supprimer des produits du catalogue ou bien supprimer les commandes une fois qu'elles ont été réalisées.
 
 ## Problèmes rencontrés
 
