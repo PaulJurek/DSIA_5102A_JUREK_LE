@@ -29,6 +29,8 @@ async def get_commandes(request: Request, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Utilisateur non trouvé")
     
     commandes = commande_service.get_liste_commandes_utilisateur(db=db, nom_utilisateur=utilisateur.nom_utilisateur)
+    if commandes == None:
+        return RedirectResponse(url="/produits", status_code=303)
     return templates.TemplateResponse("liste_commandes.html", {"request": request, "commandes": commandes})
 
 @router.get("/voircommandes", tags=["commandes"])
@@ -43,6 +45,8 @@ async def get_toutes_les_commandes(request: Request, db: Session = Depends(get_d
     if not utilisateur_service.utilisateur_est_admin(db=db,nom_utilisateur=nom_utilisateur):
         raise HTTPException(status_code=403, detail="Accès refusé") 
     commandes = commande_service.get_commandes(db=db)
+    if commandes == None:
+        return RedirectResponse(url="/produits", status_code=303)
     return templates.TemplateResponse("toutes_commandes.html", {"request": request, "commandes": commandes})
 
 @router.post("/supprimer/{commande_id}", tags=["commandes"])
@@ -56,8 +60,5 @@ async def supprimer_commande(request: Request, commande_id: str, db: Session = D
         pass
     if not utilisateur_service.utilisateur_est_admin(db=db,nom_utilisateur=nom_utilisateur):
         raise HTTPException(status_code=403, detail="Accès refusé") 
-    panier = panier_service.get_panier_by_id(db=db,panier_id=commande_id)
-    if not panier:
-        raise HTTPException(status_code=404, detail="Panier non trouvé")
     panier_service.delete_panier(db=db,panier_id=commande_id)
-    return RedirectResponse(url="/voircommandes", status_code=303)
+    return RedirectResponse(url="/commandes/voircommandes", status_code=303)

@@ -11,7 +11,7 @@ def get_liste_paniers_utilisateur(db: Session, nom_utilisateur: str) -> List[mod
     db.query(model_Utilisateur).filter(model_Utilisateur.nom_utilisateur==nom_utilisateur).first()
     records = db.query(model_Panier).filter(model_Panier.nom_utilisateur==nom_utilisateur, model_Panier.commande==0).all()
     if not records:
-        raise HTTPException(status_code=404, detail="Not Found")
+        return None, 0
     grand_total = 0
     for record in records:
         record.id = str(record.id)

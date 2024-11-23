@@ -30,6 +30,8 @@ async def get_paniers(request: Request, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Utilisateur non trouvé")
     
     paniers, grand_total = panier_service.get_liste_paniers_utilisateur(db=db, nom_utilisateur=utilisateur.nom_utilisateur)
+    if paniers == None:
+        return RedirectResponse(url="/produits", status_code=303)
     return templates.TemplateResponse("liste_paniers.html", {"request": request, "paniers": paniers, "grand_total": grand_total})
 
 @router.post("/supprimer/{panier_id}", tags=["panier"])
