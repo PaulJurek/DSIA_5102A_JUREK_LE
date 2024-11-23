@@ -53,6 +53,7 @@ Enfin il suffit de se rendre sur l'adresse IP https://127.0.0.1:5000.
 Ce projet utilise 3 db postgre "UTILISATEURS", "PRODUITS" et "PANIERS". Comme nous ne savons pas comment transmettre des db déja remplies via GITHUB, voilà une liste de commandes SQL pour pouvoir commencer à utiliser l'application. 
 
 Pour alimenter le catalogue de produits :
+
 ``
 INSERT INTO "PRODUITS" (id, nom, description, prix, imageurl, date_creation, date_modification) VALUES
 ('3f12fa8c-d3be-4a3b-8835-b01c02d3b9d7', 'Carotte', 'Légume racine riche en vitamine A', 1.25, 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Carrots_on_Display.jpg/800px-Carrots_on_Display.jpg', NOW(), NOW()),
@@ -74,9 +75,10 @@ Ensuite, vous pouvez lancer l'application grace au docker-compose. En visitant v
 Cependant, certaines options vous sont bloquées, ce sont les actions côté commerçant. Vous pouvez accéder à ces parties en vous connectant avec un utilisateur admin.
 
 Une commande SQL pour ajouter un utilisateur admin : 
+
 ``
 INSERT INTO "UTILISATEURS" (nom_utilisateur, mot_de_passe, admin, date_creation, date_modification) VALUES
-('Charlie', '$2b$12$Lr4sJF7crhWXML0EnfHa5u1qb3fmrDxCoKmemCRDsy7gcnSyOHlpW', 1, NOW(), NOW()),
+('Charlie', '$2b$12$Lr4sJF7crhWXML0EnfHa5u1qb3fmrDxCoKmemCRDsy7gcnSyOHlpW', 1, NOW(), NOW());
 ``
 
 ``
